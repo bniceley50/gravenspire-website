@@ -1,54 +1,58 @@
 import type { Metadata } from 'next'
-import {
-  Cardo,
-  EB_Garamond,
-  IM_Fell_English,
-  UnifrakturMaguntia,
-} from 'next/font/google'
+import localFont from 'next/font/local'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import '@/styles/tokens.css'
 import './globals.css'
 
 /*
- * Typefaces (self-hosted via next/font/google — downloaded to the build
- * output, served from our origin; no runtime requests to fonts.googleapis).
+ * Typefaces — truly self-hosted via next/font/local.
  *
- * Family   | Role                                         | Weights
- * ---------|----------------------------------------------|----------
- * Cardo    | Vampire Court, formal display, site wordmark | 400, 700
- * Garamond | Necromancer Academy, humanistic long-form    | 400 i, 500, 700
- * Fell     | Living Resistance + default body             | 400 + 400 i
- * Fraktur  | Pale King display only (never body)          | 400
+ * Source woff2 files are committed under `public/fonts/` and loaded at
+ * build time with hashing. No runtime dependency on fonts.googleapis
+ * or fonts.gstatic. Subset: latin only (covers basic + Latin-1
+ * supplement + the punctuation block we use: em-dash, curly quotes,
+ * section sign).
+ *
+ * To add a weight: drop the woff2 file in the right subdir, add a
+ * `src` entry in the relevant block below. Keep these in sync with
+ * the `--font-*` custom properties in `styles/tokens.css`.
  */
 
-const fontCardo = Cardo({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
+const fontCardo = localFont({
+  src: [
+    { path: '../public/fonts/cardo/cardo-400.woff2',        weight: '400', style: 'normal' },
+    { path: '../public/fonts/cardo/cardo-400-italic.woff2', weight: '400', style: 'italic' },
+    { path: '../public/fonts/cardo/cardo-700.woff2',        weight: '700', style: 'normal' },
+  ],
   variable: '--font-cardo',
   display: 'swap',
 })
 
-const fontGaramond = EB_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  style: ['normal', 'italic'],
+const fontGaramond = localFont({
+  src: [
+    { path: '../public/fonts/eb-garamond/eb-garamond-400.woff2',        weight: '400', style: 'normal' },
+    { path: '../public/fonts/eb-garamond/eb-garamond-400-italic.woff',  weight: '400', style: 'italic' },
+    { path: '../public/fonts/eb-garamond/eb-garamond-500.woff2',        weight: '500', style: 'normal' },
+    { path: '../public/fonts/eb-garamond/eb-garamond-700.woff2',        weight: '700', style: 'normal' },
+  ],
   variable: '--font-garamond',
   display: 'swap',
 })
 
-const fontFell = IM_Fell_English({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
+const fontFell = localFont({
+  src: [
+    { path: '../public/fonts/im-fell-english/im-fell-english-400.woff2',        weight: '400', style: 'normal' },
+    { path: '../public/fonts/im-fell-english/im-fell-english-400-italic.woff2', weight: '400', style: 'italic' },
+  ],
   variable: '--font-fell',
   display: 'swap',
 })
 
-const fontUnifraktur = UnifrakturMaguntia({
-  subsets: ['latin'],
-  weight: ['400'],
+const fontUnifraktur = localFont({
+  src: [
+    { path: '../public/fonts/unifraktur-maguntia/unifraktur-maguntia-400.woff2', weight: '400', style: 'normal' },
+  ],
   variable: '--font-unifraktur',
   display: 'swap',
 })
