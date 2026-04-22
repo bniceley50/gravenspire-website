@@ -1,0 +1,35 @@
+.header {
+  margin-bottom: var(--space-4);
+}
+
+.date {
+  font-family: var(--font-body);
+  font-size: var(--type-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--doc-ink-faint);
+  font-variant-numeric: oldstyle-nums;
+}
+
+.footer {
+  margin-top: var(--space-9);
+  padding-top: var(--space-5);
+  border-top: var(--stroke-hair) solid var(--doc-ink-faint);
+}
+
+.back {
+  font-family: var(--font-body);
+  font-size: var(--type-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--doc-ink-soft);
+  text-decoration: none;
+}
+
+.back:hover,
+.back:focus-visible {
+  color: var(--doc-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}

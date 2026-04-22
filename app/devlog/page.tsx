@@ -1,5 +1,8 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import Document from '@/components/Document'
+import { posts, formatDate } from '@/lib/devlog'
+import styles from './index.module.css'
 
 export const metadata: Metadata = {
   title: 'The Devlog',
@@ -15,27 +18,33 @@ export default function DevlogIndexPage() {
 
         <p>
           The devlog is the weekly record of what was written, drawn,
-          decided, or discarded in the making of Gravenspire. It is
-          published on Fridays — bi-weekly at worst, if a week has been
-          unkind to the work — and never on a schedule so tight that it
-          forces a post to be published before it is ready.
-        </p>
-
-        <p>
-          The first entry is in drafts. It will be titled
-          <em> {'\u201c'}A Notice Posted in the Trade District{'\u201d'} </em>
-          and it concerns what it means to begin a world by writing down
-          a single sheet of paper that nobody will read.
+          decided, or discarded in the making of Gravenspire. Published
+          on Fridays; bi-weekly at worst, if a week has been unkind to
+          the work. Never on a schedule so tight that it forces a post
+          to be published before it is ready.
         </p>
 
         <hr />
 
-        <p>
-          <em>
-            This page will become the index of all devlog entries. Each
-            entry will appear here as a dated title and a one-line gloss.
-          </em>
-        </p>
+        <ol className={styles.index} aria-label="All devlog entries">
+          {posts.map((post) => (
+            <li key={post.slug} className={styles.entry}>
+              <Link
+                href={`/devlog/${post.slug}`}
+                className={styles.entryLink}
+              >
+                <time
+                  dateTime={post.meta.date}
+                  className={styles.entryDate}
+                >
+                  {formatDate(post.meta.date)}
+                </time>
+                <span className={styles.entryTitle}>{post.meta.title}</span>
+              </Link>
+              <p className={styles.entryDek}>{post.meta.dek}</p>
+            </li>
+          ))}
+        </ol>
       </Document>
     </div>
   )
