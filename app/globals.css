@@ -1,0 +1,165 @@
+/*
+ * Global baseline for The Archive.
+ *
+ * This file does NOT define component styles. It establishes:
+ *   1. Reset / box-sizing
+ *   2. Root color and typography for the Archive reading environment
+ *   3. Selection, focus, and motion defaults
+ *   4. A `.prose` class for unstyled MDX/long-form pages
+ */
+
+/* ----- Minimal reset ---------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, blockquote, ul, ol, dl,
+figure {
+  margin: 0;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* ----- Root: the Archive reading environment --------------------- */
+
+html {
+  background: var(--surface-room);
+  color: var(--ink-on-room);
+  font-family: var(--font-body);
+  font-size: 100%; /* honour user preference */
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga", "kern", "onum";
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* ----- Selection: Bone Pale on a whisper of Iron Seam ------------ */
+
+::selection {
+  background: rgba(212, 204, 188, 0.28);
+  color: var(--gs-bone-pale);
+}
+
+/* ----- Focus-visible: a 1px rule, never a glow ------------------- */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: var(--stroke-hair) solid var(--ink-on-room);
+  outline-offset: 2px;
+}
+
+/* Inputs on paper surfaces — invert so the focus rule contrasts */
+[data-surface='paper'] :focus-visible,
+.document :focus-visible {
+  outline-color: var(--gs-iron-seam);
+}
+
+/* ----- Headings in the Archive room (not on paper) --------------- */
+
+/* These apply to headings rendered directly against the room background
+   (homepage, index pages). Documents re-style their headings in their
+   own module to switch to the faction display font. */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-formal);
+  font-weight: 400;
+  color: var(--ink-on-room);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--lh-snug);
+}
+
+h1 {
+  font-size: var(--type-h1);
+  line-height: var(--lh-tight);
+}
+
+h2 {
+  font-size: var(--type-h2);
+}
+
+h3 {
+  font-size: var(--type-h3);
+}
+
+h4 {
+  font-size: var(--type-h4);
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: var(--lh-body);
+}
+
+a {
+  color: inherit;
+}
+
+/* ----- Prose utility — for long-form pages composed from MDX ----- */
+
+.prose {
+  max-width: var(--measure-prose);
+  margin-inline: auto;
+}
+
+/* ----- Page utility — for full-page layout containment ----------- */
+
+.page {
+  max-width: var(--measure-page);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  padding-block: var(--space-8);
+}
+
+/* ----- Hairline rule --------------------------------------------- */
+
+.rule {
+  border: 0;
+  border-top: var(--stroke-hair) solid var(--rule-hairline);
+  margin-block: var(--space-7);
+}
+
+/* ----- Motion — reduced by default, respects user preference ----- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

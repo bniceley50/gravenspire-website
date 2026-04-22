@@ -1,0 +1,74 @@
+.header {
+  border-bottom: var(--stroke-hair) solid var(--rule-hairline);
+  background: var(--surface-room);
+  padding-block: var(--space-4);
+}
+
+.inner {
+  max-width: var(--measure-page);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.mark {
+  font-family: var(--font-formal);
+  font-size: var(--type-h4);
+  font-weight: 400;
+  letter-spacing: var(--tracking-allcaps);
+  text-transform: uppercase;
+  color: var(--ink-on-room);
+  text-decoration: none;
+  /* Inscribed, not clicked. No hover glow. Only weight shift. */
+}
+
+.mark:hover,
+.mark:focus-visible {
+  /* 1px weight-equivalent is the only hover; mimic via text-underline */
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.nav a {
+  color: var(--ink-on-room-soft);
+  text-decoration: none;
+  padding-block: var(--space-1);
+  /* Hover: a 1px underline, matching the hairline rule. */
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--ink-on-room);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+
+@media (max-width: 640px) {
+  .inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .nav {
+    gap: var(--space-4);
+    font-size: var(--type-micro);
+  }
+}

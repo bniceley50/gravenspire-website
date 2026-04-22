@@ -1,0 +1,212 @@
+/*
+ * Gravenspire — Design Tokens
+ *
+ * Source of truth: Gravenspire Art Bible §4 (Color), §7 (UI).
+ * Every hex here is quoted from the art bible. Do not invent new
+ * values. If you need a color that does not exist here, the art
+ * bible must be amended first — not this file.
+ *
+ * The Archive (this website) IS Layer 2: the world's diegetic
+ * information surface. Background = the dark room of the archive
+ * (Iron Seam). Documents ("content") sit on faction-specific
+ * paper stocks. Text is set in handwriting/inscriptional type.
+ *
+ * Prohibitions inherited from Art Bible §7.11:
+ *   - No true black (#000000)
+ *   - No true white (#FFFFFF)
+ *   - No rounded corners anywhere
+ *   - No drop shadows, gradients, glow, bloom
+ *   - No faction colors at full digital saturation
+ *   - No red as a signaling color
+ *   - No green as a safety/health color
+ *   - No gold as a reward/rarity color
+ *   - No animation without a specific information-carrying justification
+ */
+
+:root {
+  /* ---------------------------------------------------------------
+   * §4.1 — Master Palette
+   * City colors, faction-independent. Base against which factions read.
+   * ------------------------------------------------------------- */
+  --gs-quarry-stone:    #8A8478; /* dominant building material */
+  --gs-wick-gray:       #5C5650; /* aged timber, weathered iron */
+  --gs-candlefall-amber:#C48B3A; /* practical light source only */
+  --gs-pewter-rain:     #9EA4A8; /* overcast sky, wet stone */
+  --gs-iron-seam:       #3D3A38; /* shadow anchor — NOT black */
+  --gs-render-umber:    #7A6248; /* interior plaster, old beams */
+  --gs-bone-pale:       #D4CCBC; /* aged paper ceiling — NOT white */
+
+  /* ---------------------------------------------------------------
+   * §4.2 — Faction Primaries
+   * Every faction pair: primary (mass/architecture) + secondary (accent).
+   * All weathered, low-to-mid saturation. See §4.8 forbids.
+   * ------------------------------------------------------------- */
+
+  /* Vampire Court — tarnished silver-blue over slate violet */
+  --gs-court-primary:   #8A9BA8;
+  --gs-court-secondary: #4A4058;
+
+  /* Ghoul Syndicate — old-wax ochre over rust iron */
+  --gs-syndicate-primary:   #9A7B42;
+  --gs-syndicate-secondary: #7A4A38;
+
+  /* Necromancer Academy — aged parchment over academic blue-black ink */
+  --gs-academy-primary:   #C4B48A;
+  --gs-academy-secondary: #2A3040;
+
+  /* Cult of the Pale King — mortared chalk over devotional gray-purple */
+  --gs-cult-primary:   #C8C4B8;
+  --gs-cult-secondary: #7A7488;
+
+  /* Haunt Collective — interstitial rust-green over faded limewash */
+  --gs-collective-primary:   #687058;
+  --gs-collective-secondary: #A4A898;
+
+  /* Living Resistance — trade-district ochre over undyed linen */
+  --gs-resistance-primary:   #A08058;
+  --gs-resistance-secondary: #C8B898;
+
+  /* ---------------------------------------------------------------
+   * §7.7 — Per-Faction Paper Stocks
+   * Document backgrounds for Layer 2 content blocks. Never white.
+   * Collective has no consistent stock (reassigned per-document).
+   * ------------------------------------------------------------- */
+  --gs-paper-court:      #B7C0C6; /* gray-blue vellum, thin, translucent */
+  --gs-paper-syndicate:  #BFA070; /* old-wax parchment, oily, handled */
+  --gs-paper-cult:       #CCC6B8; /* rough unbleached linen paper */
+  --gs-paper-academy:    #D4C69A; /* formal academic parchment, opaque */
+  --gs-paper-collective: var(--gs-paper-syndicate); /* default; varies */
+  --gs-paper-resistance: #C8B898; /* rough linen commercial grade */
+
+  /* ---------------------------------------------------------------
+   * §4.4 — UI Palette (retained for HUD-style UI affordances)
+   * The website uses Layer 2 diegetic style primarily, but buttons
+   * and meters (ledger form, preorder state) borrow Layer 1 vocab.
+   * ------------------------------------------------------------- */
+  --gs-ui-panel-bg:       rgba(61, 58, 56, 0.45); /* Iron Seam @ 45% */
+  --gs-ui-panel-border:   #3D3A38;               /* Iron Seam 100% */
+  --gs-ui-bar-health:     #7A6248;               /* Render Umber */
+  --gs-ui-bar-health-low: #D4CCBC;               /* Bone Pale (cooler) */
+  --gs-ui-bar-mana:       #9EA4A8;               /* Pewter Rain */
+  --gs-ui-bar-mana-low:   #5C5650;               /* Wick Gray */
+  --gs-ui-indicator-hate: rgba(42, 48, 64, 0.5); /* Academic ink @ 50% */
+  --gs-ui-indicator-max:  #7A4A38;               /* Rust Iron */
+
+  /* ---------------------------------------------------------------
+   * Semantic surfaces — The Archive's reading environment
+   * The page IS the dark archive room. Content sits on paper.
+   * ------------------------------------------------------------- */
+  --surface-room:       #2E2B29;                 /* deeper than Iron Seam;
+                                                    the unlit archive */
+  --surface-room-lit:   var(--gs-iron-seam);     /* near-lit areas */
+  --surface-document:   var(--gs-paper-resistance); /* default paper */
+  --surface-margin:     var(--gs-wick-gray);     /* paper-to-room transition */
+
+  --rule-hairline:      rgba(212, 204, 188, 0.18); /* Bone Pale whisper */
+  --rule-visible:       rgba(212, 204, 188, 0.42);
+  --rule-on-paper:      rgba(61, 58, 56, 0.45);  /* Iron Seam on paper */
+
+  /* ---------------------------------------------------------------
+   * Ink / text semantics
+   * Text color follows its surface. Dark ink on paper. Bone on room.
+   * ------------------------------------------------------------- */
+  --ink-on-room:        #D4CCBC;                 /* Bone Pale */
+  --ink-on-room-soft:   rgba(212, 204, 188, 0.72);
+  --ink-on-room-faint:  rgba(212, 204, 188, 0.48);
+
+  --ink-on-paper:       var(--gs-iron-seam);     /* near-black warm */
+  --ink-on-paper-soft:  rgba(61, 58, 56, 0.78);
+  --ink-on-paper-faint: rgba(61, 58, 56, 0.52);
+
+  /* Per-faction ink (for accent/emphasis inside that faction's doc) */
+  --ink-court:      #2A3040; /* cool near-black, slightly blue */
+  --ink-syndicate:  #3E2A1C; /* deep rust-brown, heavy pressure */
+  --ink-academy:    #2A3040; /* iron-gall, precise */
+  --ink-cult:       #4A4058; /* devotional gray-purple on chalk */
+  --ink-collective: #3D3A38; /* indeterminate — default iron seam */
+  --ink-resistance: #3D3A38; /* working hand, no formal ink */
+
+  /* ---------------------------------------------------------------
+   * Typography tokens
+   *
+   * Four typefaces (self-hosted via next/font, loaded in app/layout):
+   *   --font-cardo      — Vampire Court (formal chancery register)
+   *   --font-garamond   — Necromancer Academy (humanistic, readable)
+   *   --font-unifraktur — Pale King display only (never body)
+   *   --font-fell       — Living Resistance + default body (working hand)
+   *
+   * The art bible forbids italic in Layer 1. Layer 2 may use italic
+   * sparingly in handwriting context, but we default to upright.
+   * ------------------------------------------------------------- */
+  --font-body:    var(--font-fell), "IM Fell English", Georgia, serif;
+  --font-formal:  var(--font-cardo), "Cardo", Georgia, serif;
+  --font-academy: var(--font-garamond), "EB Garamond", Georgia, serif;
+  --font-archaic: var(--font-unifraktur), "UnifrakturMaguntia", serif;
+
+  /* Type scale — generous for long-form reading. No modular scale
+     imposed; each step is chosen for a specific reading context. */
+  --type-micro:     0.75rem;   /* 12px — marginalia, dates, cross-refs */
+  --type-caption:   0.875rem;  /* 14px — metadata, captions */
+  --type-body:      1.125rem;  /* 18px — primary reading size */
+  --type-body-lg:   1.25rem;   /* 20px — opening paragraphs */
+  --type-lead:      1.5rem;    /* 24px — section pullquotes */
+  --type-h4:        1.375rem;  /* 22px */
+  --type-h3:        1.75rem;   /* 28px */
+  --type-h2:        2.25rem;   /* 36px */
+  --type-h1:        3rem;      /* 48px — page title */
+  --type-display:   4rem;      /* 64px — rare; homepage opening only */
+
+  --lh-tight:   1.15;
+  --lh-snug:    1.3;
+  --lh-body:    1.6;
+  --lh-loose:   1.8;  /* for old-typeface body where letter-spacing is tight */
+
+  --tracking-tight:  -0.01em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-allcaps: 0.12em;
+
+  /* ---------------------------------------------------------------
+   * Spacing — 8px base, generous vertical rhythm
+   * ------------------------------------------------------------- */
+  --space-1:   0.25rem;  /*  4px */
+  --space-2:   0.5rem;   /*  8px */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.5rem;   /* 24px */
+  --space-6:   2rem;     /* 32px */
+  --space-7:   3rem;     /* 48px */
+  --space-8:   4rem;     /* 64px */
+  --space-9:   6rem;     /* 96px */
+  --space-10:  8rem;     /* 128px */
+
+  /* ---------------------------------------------------------------
+   * Measure — optimal line length for long-form reading
+   * Aim: 60-70 characters at body size.
+   * ------------------------------------------------------------- */
+  --measure-prose:    38rem;   /* ~608px — ideal reading column */
+  --measure-wide:     52rem;   /* ~832px — document w/ marginalia */
+  --measure-document: 44rem;   /* ~704px — standalone paper panel */
+  --measure-page:     68rem;   /* ~1088px — outer page max */
+
+  /* ---------------------------------------------------------------
+   * Border weights — the Archive uses 1px hairlines almost exclusively
+   * ------------------------------------------------------------- */
+  --stroke-hair: 1px;
+  --stroke-rule: 2px;  /* reserved for section dividers */
+
+  /* ---------------------------------------------------------------
+   * Motion — see §7.9. Essentially zero animation by default.
+   * ------------------------------------------------------------- */
+  --motion-instant: 0ms;
+  --motion-snap:    80ms;   /* selection state density pulse */
+  --motion-rule:    120ms;  /* the "ruled construction" draw-in */
+}
+
+/* Reduced motion — respect user preference, disable everything. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-snap:  0ms;
+    --motion-rule:  0ms;
+  }
+}

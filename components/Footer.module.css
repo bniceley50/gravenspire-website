@@ -1,0 +1,28 @@
+.footer {
+  border-top: var(--stroke-hair) solid var(--rule-hairline);
+  background: var(--surface-room);
+  padding-block: var(--space-6);
+  margin-top: var(--space-10);
+}
+
+.inner {
+  max-width: var(--measure-page);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.line {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--ink-on-room-faint);
+  text-align: center;
+}
+
+.sep {
+  display: inline-block;
+  margin-inline: var(--space-3);
+  opacity: 0.5;
+}

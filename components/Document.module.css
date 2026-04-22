@@ -1,0 +1,202 @@
+/*
+ * Layer 2 document primitive styles.
+ *
+ * Each register maps to paper stock, ink, and display font per
+ * Art Bible §7.7. Values pulled from lib/factions.ts where possible,
+ * but baked here as CSS custom properties at the element level so
+ * faction-aware children can read from `--doc-*`.
+ */
+
+.document {
+  position: relative;
+  max-width: var(--measure-document);
+  margin-inline: auto;
+  margin-block: var(--space-8);
+  padding: var(--space-8) var(--space-7);
+  /* Set doc-level custom properties; overridden per register below. */
+  --doc-paper: var(--surface-document);
+  --doc-ink: var(--ink-on-paper);
+  --doc-ink-soft: var(--ink-on-paper-soft);
+  --doc-ink-faint: var(--ink-on-paper-faint);
+  --doc-rule: var(--rule-on-paper);
+  --doc-display-font: var(--font-body);
+
+  background: var(--doc-paper);
+  color: var(--doc-ink);
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: var(--lh-body);
+}
+
+.document[data-variant='notice'] {
+  max-width: var(--measure-prose);
+  padding: var(--space-6) var(--space-6);
+  font-size: var(--type-body);
+}
+
+.body > *:first-child {
+  margin-top: 0;
+}
+
+.body > *:last-child {
+  margin-bottom: 0;
+}
+
+/*
+ * Pins — small iron nail-heads at the upper corners of mounted sheets.
+ * Drawn as 6px squares with a 1px darker inner square. No shadow.
+ */
+.pin {
+  position: absolute;
+  top: calc(var(--space-3) * -1);
+  width: 8px;
+  height: 8px;
+  background: var(--gs-iron-seam);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.pin[data-pin='left'] {
+  left: var(--space-6);
+}
+
+.pin[data-pin='right'] {
+  right: var(--space-6);
+}
+
+/* ---------------------------------------------------------------
+ * Registers — paper, ink, display font per faction
+ * ------------------------------------------------------------- */
+
+.document[data-register='neutral'] {
+  --doc-paper: var(--gs-paper-resistance);
+  --doc-ink: var(--gs-iron-seam);
+}
+
+.document[data-register='vampire-court'] {
+  --doc-paper: var(--gs-paper-court);
+  --doc-ink: var(--ink-court);
+  --doc-display-font: var(--font-formal);
+}
+
+.document[data-register='ghoul-syndicate'] {
+  --doc-paper: var(--gs-paper-syndicate);
+  --doc-ink: var(--ink-syndicate);
+  --doc-display-font: var(--font-body);
+}
+
+.document[data-register='necromancer-academy'] {
+  --doc-paper: var(--gs-paper-academy);
+  --doc-ink: var(--ink-academy);
+  --doc-display-font: var(--font-academy);
+}
+
+.document[data-register='cult-of-the-pale-king'] {
+  --doc-paper: var(--gs-paper-cult);
+  --doc-ink: var(--ink-cult);
+  --doc-display-font: var(--font-archaic);
+}
+
+.document[data-register='haunt-collective'] {
+  --doc-paper: var(--gs-paper-collective);
+  --doc-ink: var(--ink-collective);
+  --doc-display-font: var(--font-body);
+}
+
+.document[data-register='living-resistance'] {
+  --doc-paper: var(--gs-paper-resistance);
+  --doc-ink: var(--ink-resistance);
+  --doc-display-font: var(--font-body);
+}
+
+/* ---------------------------------------------------------------
+ * In-document typography — headings adopt the faction display font
+ * ------------------------------------------------------------- */
+
+.document :where(h1, h2, h3, h4) {
+  font-family: var(--doc-display-font);
+  font-weight: 400;
+  color: var(--doc-ink);
+  letter-spacing: var(--tracking-normal);
+}
+
+.document :where(h1) {
+  font-size: var(--type-h1);
+  line-height: var(--lh-tight);
+  margin-block: var(--space-2) var(--space-6);
+}
+
+.document :where(h2) {
+  font-size: var(--type-h2);
+  line-height: var(--lh-snug);
+  margin-block: var(--space-7) var(--space-4);
+}
+
+.document :where(h3) {
+  font-size: var(--type-h3);
+  line-height: var(--lh-snug);
+  margin-block: var(--space-6) var(--space-3);
+}
+
+.document :where(h4) {
+  font-size: var(--type-h4);
+  line-height: var(--lh-snug);
+  margin-block: var(--space-5) var(--space-2);
+}
+
+.document :where(p) {
+  margin-block: 0 var(--space-4);
+  max-width: var(--measure-prose);
+}
+
+.document :where(p:first-of-type) {
+  font-size: var(--type-body-lg);
+  line-height: var(--lh-body);
+}
+
+/*
+ * Drop-cap-style first letter? Deferred. The art bible doesn't forbid
+ * it but doesn't call for it either. If used later, it must reference
+ * a specific manuscript tradition, not a generic marketing drop-cap.
+ */
+
+.document :where(blockquote) {
+  margin-block: var(--space-5);
+  margin-inline: 0;
+  padding-inline-start: var(--space-5);
+  border-inline-start: var(--stroke-hair) solid var(--doc-ink-faint);
+  font-style: italic;
+  color: var(--doc-ink-soft);
+}
+
+.document :where(hr) {
+  border: 0;
+  border-top: var(--stroke-hair) solid var(--doc-rule);
+  margin-block: var(--space-7);
+}
+
+.document :where(a) {
+  color: var(--doc-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.document :where(a:hover, a:focus-visible) {
+  text-decoration-thickness: 2px;
+}
+
+.document :where(ul, ol) {
+  padding-inline-start: var(--space-5);
+  margin-block: var(--space-4);
+}
+
+.document :where(li) {
+  margin-block: var(--space-2);
+}
+
+.document :where(code) {
+  font-family: "Iosevka", "SFMono-Regular", Menlo, monospace;
+  font-size: 0.92em;
+  padding-inline: 0.25em;
+  background: rgba(61, 58, 56, 0.08);
+}

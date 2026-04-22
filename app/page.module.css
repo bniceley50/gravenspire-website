@@ -1,0 +1,176 @@
+.home {
+  max-width: var(--measure-page);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  padding-block: var(--space-9) var(--space-8);
+}
+
+/* ----- Invocation ------------------------------------------------ */
+
+.invocation {
+  max-width: var(--measure-prose);
+  margin-inline: auto;
+  text-align: left;
+}
+
+.epigraph {
+  font-family: var(--font-formal);
+  font-style: italic;
+  font-size: var(--type-body-lg);
+  line-height: var(--lh-snug);
+  color: var(--ink-on-room-soft);
+  margin-bottom: var(--space-6);
+  /*
+   * Hanging opening quote: pull the opening quotation mark into the
+   * margin so the first letter of text aligns with the lede below.
+   */
+  text-indent: -0.45em;
+}
+
+.quote {
+  font-size: 1.1em;
+}
+
+.lede {
+  font-family: var(--font-formal);
+  font-weight: 400;
+  font-size: var(--type-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink-on-room);
+  margin-bottom: var(--space-6);
+}
+
+.body {
+  font-size: var(--type-body-lg);
+  line-height: var(--lh-body);
+  color: var(--ink-on-room);
+  margin-block-end: var(--space-4);
+}
+
+.body strong {
+  font-weight: 400;
+  font-family: var(--font-formal);
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
+}
+
+/* ----- Divider --------------------------------------------------- */
+
+.divider {
+  border: 0;
+  border-top: var(--stroke-hair) solid var(--rule-hairline);
+  margin-block: var(--space-9);
+  max-width: var(--measure-prose);
+  margin-inline: auto;
+}
+
+/* ----- Doorways -------------------------------------------------- */
+
+.doorways {
+  max-width: var(--measure-prose);
+  margin-inline: auto;
+}
+
+.sectionHeading {
+  font-family: var(--font-formal);
+  font-size: var(--type-caption);
+  letter-spacing: var(--tracking-allcaps);
+  text-transform: uppercase;
+  color: var(--ink-on-room-soft);
+  margin-bottom: var(--space-6);
+  font-weight: 400;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.doorway {
+  /* Each doorway is a mini-document: a linked name and a small gloss. */
+}
+
+.doorLink {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  text-decoration: none;
+  color: var(--ink-on-room);
+  padding-block-end: var(--space-2);
+  border-bottom: var(--stroke-hair) solid var(--rule-hairline);
+  transition: border-color var(--motion-rule) linear,
+              color var(--motion-rule) linear;
+}
+
+.doorLink:hover,
+.doorLink:focus-visible {
+  border-bottom-color: var(--ink-on-room);
+  color: var(--ink-on-room);
+}
+
+.doorName {
+  font-family: var(--font-formal);
+  font-size: var(--type-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+.doorMeta {
+  font-family: var(--font-body);
+  font-size: var(--type-caption);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--ink-on-room-faint);
+  font-variant-numeric: oldstyle-nums;
+}
+
+.doorBody {
+  margin-block-start: var(--space-3);
+  font-size: var(--type-body);
+  line-height: var(--lh-body);
+  color: var(--ink-on-room-soft);
+  max-width: 44ch;
+}
+
+/* ----- Colophon -------------------------------------------------- */
+
+.colophon {
+  max-width: var(--measure-prose);
+  margin-inline: auto;
+}
+
+.colophonLine {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: var(--type-caption);
+  line-height: var(--lh-body);
+  color: var(--ink-on-room-faint);
+  max-width: 56ch;
+}
+
+/* ----- Responsive ------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .home {
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  .lede {
+    font-size: var(--type-h2);
+  }
+
+  .doorName {
+    font-size: var(--type-h4);
+  }
+
+  .doorLink {
+    flex-direction: row;
+    align-items: baseline;
+  }
+}

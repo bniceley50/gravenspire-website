@@ -1,0 +1,33 @@
+{
+  "name": "gravenspire-website",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Gravenspire — The Archive. Typography-first devlog and worldbook for the Gravenspire gothic MMO.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.18",
+    "next": "^14.2.18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^20.12.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.18",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}
