@@ -1,0 +1,10 @@
+.seal {
+  display: block;
+  /*
+   * Seals sit on paper. They are not interactive. They do not hover.
+   * Slight transparency simulates the ink or wax having absorbed
+   * into the paper fibres rather than sitting on top.
+   */
+  opacity: 0.92;
+  user-select: none;
+}

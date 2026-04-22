@@ -13,6 +13,7 @@
   margin-inline: auto;
   margin-block: var(--space-8);
   padding: var(--space-8) var(--space-7);
+  overflow: hidden;
   /* Set doc-level custom properties; overridden per register below. */
   --doc-paper: var(--surface-document);
   --doc-ink: var(--ink-on-paper);
@@ -20,6 +21,8 @@
   --doc-ink-faint: var(--ink-on-paper-faint);
   --doc-rule: var(--rule-on-paper);
   --doc-display-font: var(--font-body);
+  --doc-grain-opacity: 0.26;
+  --doc-fold-opacity: 0.08;
 
   background: var(--doc-paper);
   color: var(--doc-ink);
@@ -28,10 +31,50 @@
   line-height: var(--lh-body);
 }
 
+/* ---------------------------------------------------------------
+ * Paper grain — SVG fractal-noise blended into the paper colour.
+ * Data URI so no asset file is fetched separately. The same grain
+ * pattern is reused for every faction; opacity and blend mode are
+ * tuned per register to approximate different paper stocks.
+ * Art Bible §7.2, §7.7.
+ * ------------------------------------------------------------- */
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--doc-grain-opacity);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-repeat: repeat;
+  background-size: 240px 240px;
+}
+
+/* Single horizontal fold-mark at mid-document — as if folded for
+ * envelope transport. Academy convention per §7.7; subtle enough
+ * that it reads as "this sheet has been folded" rather than as a
+ * decorative rule. */
+.fold {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--doc-ink);
+  opacity: var(--doc-fold-opacity);
+  pointer-events: none;
+}
+
 .document[data-variant='notice'] {
   max-width: var(--measure-prose);
   padding: var(--space-6) var(--space-6);
   font-size: var(--type-body);
+}
+
+.body {
+  /* Ensure body content paints above the absolute grain and fold layers. */
+  position: relative;
+  z-index: 1;
 }
 
 .body > *:first-child {
@@ -40,6 +83,42 @@
 
 .body > *:last-child {
   margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------
+ * Seal placement — per Art Bible §7.7 convention per faction.
+ * ------------------------------------------------------------- */
+
+.sealFoot {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  display: flex;
+  /* Default right — Court/Academy/Resistance */
+  justify-content: flex-end;
+}
+
+.sealFoot[data-register='ghoul-syndicate'],
+.sealFoot[data-register='cult-of-the-pale-king'],
+.sealFoot[data-register='haunt-collective'] {
+  justify-content: flex-start;
+}
+
+/* Resistance pen-mark is smaller and sits closer inline */
+.sealFoot[data-register='living-resistance'] {
+  margin-top: var(--space-5);
+}
+
+/* Collective defacement sits irregularly — slight rotation */
+.sealFoot[data-register='haunt-collective'] > * {
+  transform: rotate(-2deg);
+  margin-inline-start: var(--space-5);
+}
+
+/* Syndicate sits flush-left, slight downward tilt */
+.sealFoot[data-register='ghoul-syndicate'] > * {
+  transform: translateX(calc(var(--space-4) * -0.5));
 }
 
 /*
@@ -70,42 +149,60 @@
 .document[data-register='neutral'] {
   --doc-paper: var(--gs-paper-resistance);
   --doc-ink: var(--gs-iron-seam);
+  --doc-grain-opacity: 0.22;
 }
 
 .document[data-register='vampire-court'] {
+  /* Vellum is thin and even; lower grain, very subtle fold */
   --doc-paper: var(--gs-paper-court);
   --doc-ink: var(--ink-court);
   --doc-display-font: var(--font-formal);
+  --doc-grain-opacity: 0.18;
+  --doc-fold-opacity: 0.06;
 }
 
 .document[data-register='ghoul-syndicate'] {
+  /* Oily, heavily handled — heavier grain, visible fold */
   --doc-paper: var(--gs-paper-syndicate);
   --doc-ink: var(--ink-syndicate);
   --doc-display-font: var(--font-body);
+  --doc-grain-opacity: 0.35;
+  --doc-fold-opacity: 0.12;
 }
 
 .document[data-register='necromancer-academy'] {
+  /* Smooth with slight tooth — light grain, crisp fold */
   --doc-paper: var(--gs-paper-academy);
   --doc-ink: var(--ink-academy);
   --doc-display-font: var(--font-academy);
+  --doc-grain-opacity: 0.2;
+  --doc-fold-opacity: 0.14;
 }
 
 .document[data-register='cult-of-the-pale-king'] {
+  /* Rough unbleached linen — visible fiber, no fold convention */
   --doc-paper: var(--gs-paper-cult);
   --doc-ink: var(--ink-cult);
   --doc-display-font: var(--font-archaic);
+  --doc-grain-opacity: 0.42;
+  --doc-fold-opacity: 0;
 }
 
 .document[data-register='haunt-collective'] {
   --doc-paper: var(--gs-paper-collective);
   --doc-ink: var(--ink-collective);
   --doc-display-font: var(--font-body);
+  --doc-grain-opacity: 0.32;
+  --doc-fold-opacity: 0.1;
 }
 
 .document[data-register='living-resistance'] {
+  /* Commercial grade, rougher than Academy — medium grain */
   --doc-paper: var(--gs-paper-resistance);
   --doc-ink: var(--ink-resistance);
   --doc-display-font: var(--font-body);
+  --doc-grain-opacity: 0.28;
+  --doc-fold-opacity: 0.08;
 }
 
 /* ---------------------------------------------------------------

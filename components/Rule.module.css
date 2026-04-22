@@ -1,0 +1,25 @@
+.wrap {
+  width: 100%;
+  max-width: var(--measure-prose);
+  margin-inline: auto;
+  margin-block: var(--space-7);
+  color: var(--rule-hairline, currentColor);
+  line-height: 0;
+}
+
+.wrap[data-variant='short'] {
+  max-width: 16rem;
+  margin-inline: 0;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 16px;
+  overflow: visible;
+}
+
+/* On paper surfaces, inherit the document's rule color */
+.wrap[data-on-paper='true'] {
+  color: var(--doc-ink-faint);
+}

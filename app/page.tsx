@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Rule from '@/components/Rule'
 import styles from './page.module.css'
 
 /**
@@ -44,7 +45,7 @@ export default function HomePage() {
         </p>
       </section>
 
-      <hr className={styles.divider} aria-hidden="true" />
+      <Rule />
 
       <section className={styles.doorways} aria-labelledby="home-doorways">
         <h2 id="home-doorways" className={styles.sectionHeading}>
@@ -102,7 +103,7 @@ export default function HomePage() {
         </ol>
       </section>
 
-      <hr className={styles.divider} aria-hidden="true" />
+      <Rule />
 
       <section className={styles.colophon} aria-label="Colophon">
         <p className={styles.colophonLine}>
