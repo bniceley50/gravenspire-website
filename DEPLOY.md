@@ -9,26 +9,11 @@ blocked on domain purchase for production.**
 
 Before running `vercel deploy`, decide on these and tick the box:
 
-- [ ] **Next.js version.** We are currently on `next@14.2.35` and
-  `npm audit` reports 5 high-severity CVEs in that line:
-    1. DoS via Image Optimizer remotePatterns (we don't use `next/image`, so not applicable).
-    2. HTTP request deserialization DoS in RSC.
-    3. HTTP request smuggling in rewrites (we have no rewrites).
-    4. Unbounded `next/image` disk cache growth (not applicable).
-    5. DoS with Server Components.
-
-  **Options:**
-    - **A — Stay on Next 14.** Vercel's platform patches most of the
-      attack surface upstream, and our build is fully static. This is
-      the lowest-risk path *if you trust Vercel's infrastructure
-      patching cadence*.
-    - **B — Upgrade to Next 15 (recommended).** Next 15 is current
-      stable. The App Router is unchanged; changes are mostly internal.
-      Run `npm install next@15 eslint-config-next@15` and re-run
-      `npm run build` to verify.
-    - **C — Upgrade to Next 16** (via `npm audit fix --force`). Larger
-      breaking changes than 15; only worth it if we have specific 16
-      features in mind.
+- [x] ~~**Next.js version.**~~ **Resolved.** Upgraded to
+  `next@15.5.15` + `react@19.2.5`. The five Next 14 CVEs are gone
+  (`npm audit` returns 0 vulnerabilities). The only code change
+  required was adopting the async-params pattern in
+  `/world/[faction]/page.tsx` and `/devlog/[slug]/page.tsx`.
 
 - [ ] **Domain.** `gravenspire.com` is not yet registered. See §3.
 

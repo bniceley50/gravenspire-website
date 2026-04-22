@@ -29,11 +29,12 @@ export function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { faction: string }
+  params: Promise<{ faction: string }>
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const faction = getFaction(params.faction)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { faction: slug } = await params
+  const faction = getFaction(slug)
   if (!faction) return {}
   return {
     title: faction.name,
@@ -41,8 +42,9 @@ export function generateMetadata({ params }: PageProps): Metadata {
   }
 }
 
-export default function FactionPage({ params }: PageProps) {
-  const faction = getFaction(params.faction)
+export default async function FactionPage({ params }: PageProps) {
+  const { faction: slug } = await params
+  const faction = getFaction(slug)
   if (!faction) notFound()
 
   const Authored = shippingContent[faction.slug]

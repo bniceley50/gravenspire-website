@@ -10,11 +10,12 @@ export function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const post = getPost(params.slug)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const post = getPost(slug)
   if (!post) return {}
   return {
     title: post.meta.title,
@@ -22,8 +23,9 @@ export function generateMetadata({ params }: PageProps): Metadata {
   }
 }
 
-export default function DevlogPostPage({ params }: PageProps) {
-  const post = getPost(params.slug)
+export default async function DevlogPostPage({ params }: PageProps) {
+  const { slug } = await params
+  const post = getPost(slug)
   if (!post) notFound()
 
   const { Content, meta } = post
